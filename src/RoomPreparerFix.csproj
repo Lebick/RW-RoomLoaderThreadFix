@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <AssemblyName>RoomPreparerFix</AssemblyName>
+    <RootNamespace>RoomPreparerFix</RootNamespace>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <OutputPath>../mod/plugins</OutputPath>
+    <RainWorldDir Condition="'$(RainWorldDir)'==''">C:\Program Files (x86)\Steam\steamapps\common\Rain World</RainWorldDir>
+    <!-- 빌드 후 게임 mods 폴더로 복사할지 여부 (dotnet build -p:CopyToGame=false 로 끌 수 있음) -->
+    <CopyToGame Condition="'$(CopyToGame)'==''">true</CopyToGame>
+    <GameModDir>$(RainWorldDir)\RainWorld_Data\StreamingAssets\mods\roompreparerfix</GameModDir>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <DebugType>portable</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="$(RainWorldDir)/BepInEx/core/BepInEx.dll"><Private>false</Private></Reference>
+    <Reference Include="$(RainWorldDir)/BepInEx/core/MonoMod.RuntimeDetour.dll"><Private>false</Private></Reference>
+    <Reference Include="$(RainWorldDir)/BepInEx/core/MonoMod.Utils.dll"><Private>false</Private></Reference>
+    <Reference Include="$(RainWorldDir)/BepInEx/plugins/HOOKS-Assembly-CSharp.dll"><Private>false</Private></Reference>
+    <Reference Include="$(RainWorldDir)/BepInEx/utils/PUBLIC-Assembly-CSharp.dll"><Private>false</Private></Reference>
+    <Reference Include="$(RainWorldDir)/RainWorld_Data/Managed/UnityEngine.dll"><Private>false</Private></Reference>
+    <Reference Include="$(RainWorldDir)/RainWorld_Data/Managed/UnityEngine.CoreModule.dll"><Private>false</Private></Reference>
+    <Reference Include="$(RainWorldDir)/RainWorld_Data/Managed/Assembly-CSharp-firstpass.dll"><Private>false</Private></Reference>
+  </ItemGroup>
+
+  <Target Name="CopyToGame" AfterTargets="Build" Condition="'$(CopyToGame)'=='true'">
+    <ItemGroup>
+      <ModFiles Include="../mod/**/*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(ModFiles)" DestinationFiles="@(ModFiles->'$(GameModDir)\%(RecursiveDir)%(Filename)%(Extension)')" ContinueOnError="true" />
+  </Target>
+
+</Project>

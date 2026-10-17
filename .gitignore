@@ -1,0 +1,7 @@
+bin/
+obj/
+.vs/
+*.user
+# 빌드 산출물은 Releases로 배포한다
+mod/plugins/
+dist/

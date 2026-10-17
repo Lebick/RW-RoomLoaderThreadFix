@@ -1,0 +1,13 @@
+{
+  "id": "levick.roompreparerfix",
+  "name": "Room Loader Thread Fix",
+  "version": "1.0.0",
+  "target_game_version": "v1.11.8",
+  "authors": "levick",
+  "description": "Fixes a vanilla bug where CPU usage keeps growing after every save (hibernation, echo encounters, warps) until the game is restarted.<LINE>If the game shuts down while a room is still loading, its loader thread (RoomPreparer) is abandoned and spins at 100% of a CPU core forever. This mod finds such abandoned threads and lets them exit cleanly. No gameplay or save data changes.<LINE><LINE>저장(동면, 메아리 조우, 워프 등) 이후 CPU 사용량이 계속 늘어나는 바닐라 버그를 수정합니다. 버려진 방 로딩 스레드를 찾아 정상 종료시키며, 게임 플레이와 저장 데이터는 바꾸지 않습니다.",
+  "requirements": [],
+  "requirements_names": [],
+  "priorities": [],
+  "tags": ["Tools"],
+  "checksum_override_version": true
+}
